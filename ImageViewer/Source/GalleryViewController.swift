@@ -20,7 +20,7 @@ open class GalleryViewController: UIPageViewController, ItemControllerDelegate {
     fileprivate var closeButton: UIButton? = UIButton.closeButton()
     fileprivate var seeAllCloseButton: UIButton? = nil
     fileprivate var thumbnailsButton: UIButton? = UIButton.thumbnailsButton()
-    fileprivate var deleteButton: UIButton? = UIButton.deleteButton()
+    open var deleteButton: UIButton? = UIButton.deleteButton()
     fileprivate let scrubber = VideoScrubber()
 
     fileprivate weak var initialItemController: ItemController?
@@ -428,13 +428,17 @@ open class GalleryViewController: UIPageViewController, ItemControllerDelegate {
         deleteButton?.isEnabled = false
         view.isUserInteractionEnabled = false
 
-        itemsDelegate?.removeGalleryItem(at: currentIndex)
-        removePage(atIndex: currentIndex) {
-
-            [weak self] in
-            self?.deleteButton?.isEnabled = true
-            self?.view.isUserInteractionEnabled = true
-        }
+        itemsDelegate?.removeGalleryItem(at: currentIndex, controller: self)
+        
+        /**
+         *  Changes on current library to adapt current program
+         */
+//        removePage(atIndex: currentIndex) {
+//
+//            [weak self] in
+//            self?.deleteButton?.isEnabled = true
+//            self?.view.isUserInteractionEnabled = true
+//        }
     }
 
     //ThumbnailsimageBlock
@@ -487,7 +491,7 @@ open class GalleryViewController: UIPageViewController, ItemControllerDelegate {
         }
     }
 
-    func removePage(atIndex index: Int, completion: @escaping () -> Void) {
+    open func removePage(atIndex index: Int, completion: @escaping () -> Void) {
 
         // If removing last item, go back, otherwise, go forward
 
