@@ -43,6 +43,14 @@ extension ViewController: GalleryItemsDataSource {
     func provideGalleryItem(_ index: Int) -> GalleryItem {
         return items[index].galleryItem
     }
+    
+    func removeGalleryItem(at index: Int, controller galleryViewController: GalleryViewController) {
+        // TODO
+    
+        // At the end of the changes.
+        galleryViewController.deleteButton?.isEnabled = true
+        galleryViewController.view.isUserInteractionEnabled = true
+
 }
 
 ```
